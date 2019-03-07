@@ -1,5 +1,5 @@
 # NGS_R
-The code does the following jobs.....Note: Make sure the datasets of one's interest are installed and loaded
+The code does the following jobs
 ## 1) R code for NGS analysis
 ## 2) Accessing the data stored
 ## 3) Extracting SNP Information for a set of RS IDS
