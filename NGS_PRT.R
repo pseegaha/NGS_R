@@ -33,7 +33,6 @@ getSNPcount()
 plot(getSNPcount(),seqlengths(genome1)[1:25])
 
 
-
 ## Get the locations and alleles of all SNPs on chromosome 22:
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 transcripts(TxDb.Hsapiens.UCSC.hg19.knownGene)
@@ -42,9 +41,10 @@ ch22snps <- getSNPlocs("ch22")
 dim(ch22snps)
 colnames(ch22snps)
 head(ch22snps)
+## Convenience wrappers for loading the SNP data:
 getSNPcount()
-## Get the locations and alleles of all SNPs on chromosomes 22 and MT as a GRanges object and return it in a GRanges object:
 getSNPlocs(c("ch22", "chMT"), as.GRanges=TRUE)
+## Extract SNP information for a set of rs ids:
 myrsids <- c("rs2639606", "rs75264089", "rs73396229", "rs55871206",
              "rs10932221", "rs56219727", "rs73709730", "rs55838886",
              "rs3734153", "rs79381275", "rs75350930", "rs1516535")
