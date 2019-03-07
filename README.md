@@ -1,9 +1,10 @@
 # NGS_R
-## R code for NGS analysis
-## Accessing the data stored
-## Extracting SNP Information for a set of RS IDS
-## Injection in the Reference genome
-## Quality Control
+The code does the following jobs.....Note: Make sure the datasets of one's interest are installed and loaded
+## 1) R code for NGS analysis
+## 2) Accessing the data stored
+## 3) Extracting SNP Information for a set of RS IDS
+## 4) Injection in the Reference genome
+## 5) Quality Control
 ## Arguments
 
 ```seqname```
