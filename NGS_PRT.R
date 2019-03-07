@@ -12,6 +12,8 @@ if (!requireNamespace("BiocManager", quietly=TRUE))
 BiocManager::install("gdsfmt")
 BiocManager::install("SNPRelate")
 
+
+
 ## NGS analysis of BSgenome.Hsapiens.UCSC.hg19 
 library(BSgenome.Hsapiens.UCSC.hg19)
 ?BSgenome.Hsapiens.UCSC.hg19
@@ -59,7 +61,8 @@ myrsids <- c("rs2639606", "rs75264089", "rs73396229", "rs55871206",
 rsidsToGRanges(myrsids)
 
 
-## Inject the SNPs in hg19 (injectSNPs() "knows" how to map dbSNP chromosome names to UCSC names):
+
+## Inject the SNPs in hg19 (injectSNPs() "knows" how to map dbSNP chromosome names to UCSC names)
 library(BSgenome.Hsapiens.UCSC.hg19)
 Hsapiens
 Hs2 <- injectSNPs(Hsapiens, "SNPlocs.Hsapiens.dbSNP.20101109")
@@ -69,25 +72,22 @@ alphabetFrequency(unmasked(Hsapiens$chr22))
 ## Get the number of nucleotides that were modified by this injection:
 neditAt(unmasked(Hs2$chr22), unmasked(Hsapiens$chr22))
 
+
+
 ## Quality Control(QC) stuff
 ## Note that dbSNP can assign distinct ids to SNPs located at the same position: rs ids are all distinct
 any(duplicated(ch22snps$RefSNP_id)) 
-# but some locations are repeated
+# some locations are repeated
 any(duplicated(ch22snps$loc)) 
 # sort by location
 ch22snps <- ch22snps[order(ch22snps$loc), ] 
-# 777
 which(duplicated(ch22snps$loc))[1]  
-# rs75258394 and rs78180314 have same locations and alleles
 ch22snps[775:778, ]  
-## Also note that not all SNP alleles are consistent with the hg19 genome i.e. the alleles reported for a given SNP are not always compatible with the nucleotide found at the SNP location in hg19.
 ch1snps <- getSNPlocs("ch1")
 all_alleles <- paste(ch1snps$alleles_as_ambig, collapse="")
-# 1849438 SNPs on chr1
 nchar(all_alleles)  
 neditAt(all_alleles, unmasked(Hsapiens$chr1)[ch1snps$loc], fixed=FALSE)
-## 3181 SNPs (0.17%) are inconsistent with hg19 chr1.let's check that no SNP falls in an assembly gap:
-assemblygaps <- masks(Hsapiens$chr1)$AGAPS
+assemblygaps <- masks(Hsapiens$chr1)$ASSEMBLYGAPS
 # the assembly gaps
 assemblygaps  
 ## Looping over the assembly gaps:
