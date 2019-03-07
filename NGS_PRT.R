@@ -1,3 +1,4 @@
+##Dataset packages install order
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", version = "3.8")
@@ -11,6 +12,7 @@ if (!requireNamespace("BiocManager", quietly=TRUE))
 BiocManager::install("gdsfmt")
 BiocManager::install("SNPRelate")
 
+## NGS analysis of BSgenome.Hsapiens.UCSC.hg19 
 library(BSgenome.Hsapiens.UCSC.hg19)
 ?BSgenome.Hsapiens.UCSC.hg19
 
@@ -18,7 +20,7 @@ genome1 <- BSgenome.Hsapiens.UCSC.hg19
 seqlengths(genome1)
 plot(seqlengths(genome1))
 seqnames(genome1)
-genome$chr1  # same as genome[["chr1"]]
+genome1$chr1  # same as genome1[["chr1"]]
 
 for (seqname in seqnames(genome1)[1:2]) {
   cat("Checking sequence", seqname, "... ", length(genome1[[seqname]]))
@@ -30,9 +32,12 @@ for (seqname in seqnames(genome1)[1:2]) {
 length(names(genome1$upstream1000))
 names(genome1$upstream1000)[1:4]
 getSNPcount()
+##plot
 plot(getSNPcount(),seqlengths(genome1)[1:25])
 
 
+
+## Accessing the data stored for TxDb.Hsapiens.UCSC.hg19.knownGene
 ## Get the locations and alleles of all SNPs on chromosome 22:
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 transcripts(TxDb.Hsapiens.UCSC.hg19.knownGene)
@@ -44,6 +49,9 @@ head(ch22snps)
 ## Convenience wrappers for loading the SNP data:
 getSNPcount()
 getSNPlocs(c("ch22", "chMT"), as.GRanges=TRUE)
+
+
+
 ## Extract SNP information for a set of rs ids:
 myrsids <- c("rs2639606", "rs75264089", "rs73396229", "rs55871206",
              "rs10932221", "rs56219727", "rs73709730", "rs55838886",
@@ -60,6 +68,8 @@ alphabetFrequency(unmasked(Hs2$chr22))
 alphabetFrequency(unmasked(Hsapiens$chr22))
 ## Get the number of nucleotides that were modified by this injection:
 neditAt(unmasked(Hs2$chr22), unmasked(Hsapiens$chr22))
+
+## Quality Control(QC) stuff
 ## Note that dbSNP can assign distinct ids to SNPs located at the same position: rs ids are all distinct
 any(duplicated(ch22snps$RefSNP_id)) 
 # but some locations are repeated
